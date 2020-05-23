@@ -48,23 +48,21 @@ public class ListViewActivity extends Activity {
         lastPage = pagination.getLastPage();
 
         updateData();
-//
-//        MovieListViewAdapter adapter = new MovieListViewAdapter(this, R.layout.row, movies);
-//        listView.setAdapter(adapter);
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.d("click", "11");
-//                Movie movie = movies.get(position);
-//                String message = String.format("Clicked on position: %d, name: %s, %s, %d", position, movie.getId(), movie.getName(), movie.getYear());
-//                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
-//                Intent listPage = new Intent(ListViewActivity.this, SingleMv.class);
-//                listPage.putExtra("id", movie.getId());
-////                startActivity(listPage);
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("click", "11");
+                Movie movie = movies.get(position + 20* currentPage);
+                String message = String.format("Clicked on position: %d, id: %s,name: %s,Year: %s", position, movie.getId(), movie.getName(), movie.getYear());
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+
+                Intent singleMvPage = new Intent(ListViewActivity.this, SingleMv.class);
+                singleMvPage.putExtra("mv_object", movie);
+                startActivity(singleMvPage);
+            }
+        });
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +149,5 @@ public class ListViewActivity extends Activity {
             next.setEnabled(true);
             previous.setEnabled(true);
         }
-
     }
 }

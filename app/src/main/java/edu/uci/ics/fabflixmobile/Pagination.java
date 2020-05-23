@@ -10,6 +10,7 @@ class Pagination {
     private int lastPage;
     private final ArrayList<Movie>movieData;
 
+
     public Pagination(int itemsPerPage, ArrayList<Movie> movieData) {
 
         this.itemsPerPage = itemsPerPage;
