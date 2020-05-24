@@ -43,7 +43,7 @@ public class Search extends ActionBarActivity {
 
 //        url = "https://10.0.2.2:8443/project3/api/";
         // upon creation, inflate and initialize the layout
-        url = "https://ec2-3-14-66-135.us-east-2.compute.amazonaws.com:8443/project1/api/";
+        url = "https://ec2-3-19-77-3.us-east-2.compute.amazonaws.com:8443/project1/api/";
         setContentView(R.layout.search);
         et_search = findViewById(R.id.etSearch);
         search = findViewById(R.id.btnSearch);
