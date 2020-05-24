@@ -1,10 +1,14 @@
 package edu.uci.ics.fabflixmobile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -43,7 +47,7 @@ public class Search extends ActionBarActivity {
 
 //        url = "https://10.0.2.2:8443/project3/api/";
         // upon creation, inflate and initialize the layout
-        url = "https://ec2-18-222-98-131.us-east-2.compute.amazonaws.com:8443/project1/api/";
+        url = "https://ec2-3-136-86-44.us-east-2.compute.amazonaws.com:8443/project1/api/";
         setContentView(R.layout.search);
         et_search = findViewById(R.id.etSearch);
         search = findViewById(R.id.btnSearch);
@@ -57,6 +61,23 @@ public class Search extends ActionBarActivity {
                 radioButton = findViewById(radioId);
                 String index = (String) radioButton.getText();
                 do_search(index);
+            }
+        });
+        et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                    int radioId = radioGroup.getCheckedRadioButtonId();
+                    radioButton = findViewById(radioId);
+                    String index = (String) radioButton.getText();
+                    Toast.makeText(getApplicationContext(),"Enter is pressed",Toast.LENGTH_SHORT).show();
+                    //隐藏软键盘
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+
+                    do_search(index);
+                }
+                return false;
             }
         });
     }

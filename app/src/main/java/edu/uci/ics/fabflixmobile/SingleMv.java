@@ -85,7 +85,9 @@ public class SingleMv extends Activity {
 
     private void get_all_details(String id){
         final RequestQueue queue = NetworkManager.sharedManager(this).queue;
-        String url = "https://10.0.2.2:8443/project3/api/";
+//        String url = "https://10.0.2.2:8443/project3/api/";
+        String url = "https://ec2-3-136-86-44.us-east-2.compute.amazonaws.com:8443/project1/api/";
+
 
         final StringRequest all_star_details = new StringRequest(Request.Method.POST, url + "single-mv", new Response.Listener<String>() {
             @Override

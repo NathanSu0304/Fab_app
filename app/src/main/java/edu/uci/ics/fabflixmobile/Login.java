@@ -40,7 +40,7 @@ public class Login extends ActionBarActivity {
          * To connect to your machine, you need to use the below IP address
          * **/
 //        url = "https://10.0.2.2:8443/project3/api/";
-        url = "https://ec2-18-222-98-131.us-east-2.compute.amazonaws.com:8443/project1/api/";
+        url = "https://ec2-3-136-86-44.us-east-2.compute.amazonaws.com:8443/project1/api/";
 
         //assign a listener to call a function to handle the user request when clicking a button
         loginButton.setOnClickListener(new View.OnClickListener() {
