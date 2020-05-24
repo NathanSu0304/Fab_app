@@ -21,13 +21,13 @@ class Pagination {
             lastPageItems = movieData.size();
         }
         else{
-            lastPageItems = total_mv % lastPage;
+            lastPageItems = total_mv % itemsPerPage;
         }
 
         Log.d("movies111",itemsPerPage + "");
-        Log.d("movies111",total_mv + "");
-        Log.d("movies111",lastPage + "");
-        Log.d("movies111",lastPageItems + "");
+        Log.d("movies111 total",total_mv + "");
+        Log.d("movies111 last page",lastPage + "");
+        Log.d("movies111 lastpageitem",lastPageItems + "");
 
     }
 

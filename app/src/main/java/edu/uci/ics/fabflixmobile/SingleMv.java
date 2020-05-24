@@ -64,20 +64,16 @@ public class SingleMv extends Activity {
     private void parse_details(String jsonData, String all_gens, String all_stars) throws JSONException {
         JSONArray jsonArray = new JSONArray(jsonData);
 
-        for(int i = 0; i< jsonArray.length()-1;i++){
+        for(int i = 0; i < 2;i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-            try{
-                all_gens += jsonObject.getString("name") + ",";
-                Log.d("name",jsonObject.getString("name"));
+            if(i == 0){
+                all_gens = jsonObject.getString("name");
             }
-            catch (Exception e){
-                all_stars += jsonObject.getString("star_name") + ",";
+            else {
+                all_stars = jsonObject.getString("star_name");
             }
         }
-        all_gens = all_gens.substring(0,all_gens.length()-1);
-        all_stars = all_stars.substring(0,all_stars.length()-1);
-
         Log.d("all_gens.success", all_gens);
         Log.d("all_stars.success", all_stars);
 

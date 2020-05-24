@@ -18,6 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +32,7 @@ public class Search extends ActionBarActivity {
     private EditText et_search;
     private Button search;
     private String url;
+    public ArrayList<Movie>mv_store;
 
 
     @Override
@@ -40,6 +46,7 @@ public class Search extends ActionBarActivity {
         et_search = findViewById(R.id.etSearch);
         search = findViewById(R.id.btnSearch);
         radioGroup = findViewById(R.id.radio_group);
+        mv_store = new ArrayList<Movie>();
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +74,12 @@ public class Search extends ActionBarActivity {
                 //without starting the activity/page, nothing would happen
                 ListViewPage.putExtra("info",response);
 
+                try {
+                    showResponse(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                ListViewPage.putExtra("info",mv_store.toString());
 
                 startActivity(ListViewPage);
             }
@@ -91,6 +104,25 @@ public class Search extends ActionBarActivity {
             }
         };
         queue.add(searchRequest);
+
+    }
+
+    private void showResponse(String jsonData) throws JSONException {
+        Log.d("show response ", jsonData);
+        JSONArray jsonArray = new JSONArray(jsonData);
+        for(int i = 0; i< jsonArray.length();i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            String id = jsonObject.getString("id");
+            String title = jsonObject.getString("title");
+            String year = jsonObject.getString("year");
+            String director = jsonObject.getString("director");
+            Movie mv = new Movie(id, title, year, director);
+            mv.all_gens = jsonObject.getString("all_gens");
+            mv.all_stars = jsonObject.getString("all_stars");
+            mv_store.add(mv);
+            Log.d("AAA1 response ", mv.toString());
+        }
+
 
     }
 

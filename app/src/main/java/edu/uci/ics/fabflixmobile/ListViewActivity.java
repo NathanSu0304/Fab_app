@@ -34,15 +34,14 @@ public class ListViewActivity extends Activity {
         //this should be retrieved from the database and the backend server
         Intent intent = getIntent();
         String data = intent.getStringExtra("info");
-        Log.d("info", data);
+//        data = data.replace("Movie","");
+//        data = data.replace("=",":");
 
         final ArrayList<Movie> movies = new ArrayList<>();
         parseData(data, movies);
         listView = findViewById(R.id.list);
         next = findViewById(R.id.btnNext);
         previous = findViewById(R.id.btnPre);
-
-        Log.d("movies",movies.toString());
 
         pagination = new Pagination(20,movies);
         lastPage = pagination.getLastPage();
@@ -53,7 +52,6 @@ public class ListViewActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("click", "11");
                 Movie movie = movies.get(position + 20* currentPage);
                 String message = String.format("Clicked on position: %d, id: %s,name: %s,Year: %s", position, movie.getId(), movie.getName(), movie.getYear());
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
@@ -101,20 +99,27 @@ public class ListViewActivity extends Activity {
 
     protected void parseData(String data, ArrayList<Movie> movies){
         try{
+            Log.d("movie_item ", data);
             JSONArray jsonArray = new JSONArray(data);
             for(int i= 0; i< jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String id = jsonObject.getString("id");
+
                 String title = jsonObject.getString("title");
                 String year = jsonObject.getString("year");
                 String director = jsonObject.getString("director");
                 String gens = parseStr(jsonObject.getString("all_gens"));
-
-                String stars = parseStar(jsonObject.getString("all_stars"));
+                String stars = jsonObject.getString("all_stars");
 
                 Movie m = new Movie(id, title,year,director);
                 m.all_gens = gens;
-                m.all_stars = stars;
+                if(stars == null || stars.equals("")){
+                    m.all_stars = "null";
+                }
+                else{
+                    m.all_stars = parseStar(stars);
+                }
+
                 movies.add(m);
             }
         }
